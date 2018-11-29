@@ -1,20 +1,21 @@
 <?php
 
-include('../../FeatureFlag.php'); //
-
-class EncapsulatedDrawerFeatureFlag {
-
+require('FeatureFlag.php');
+class TestableDrawer
+{
     private $content = null;
     private $isOpen = false;
     private $size = 20;
 
-    public function open(){
+    public function open()
+    {
         if ($this->isOpen) {
             throw new Exception("Can not open an open drawer");
         }
 
         $this->isOpen = true;
     }
+
 
     public function close(){
         if (!$this->isOpen) {
@@ -37,7 +38,7 @@ class EncapsulatedDrawerFeatureFlag {
     }
 
 
-    public function getMaxAllowedSize(){
+    private function getMaxAllowedSize(){
         if (FeatureFlag::isOn("myFlag")) {
             return $this->size / 2;
         }
@@ -52,5 +53,5 @@ class EncapsulatedDrawerFeatureFlag {
         $this->content = null;
         return $object;
     }
-
 }
+

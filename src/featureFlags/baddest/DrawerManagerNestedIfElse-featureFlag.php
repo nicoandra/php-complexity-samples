@@ -5,7 +5,7 @@ include('../../FeatureFlag.php'); //
 include('drawer.php');
 
 
-class DrawerManagerNestedIfElseFeatureFlag {
+class DrawerManagerNestedIfElseFeatureFlagBaddest {
 
     public function open(Drawer $drawer){
         if (!$drawer->isOpen) {
@@ -26,17 +26,18 @@ class DrawerManagerNestedIfElseFeatureFlag {
     public function put(Drawer $drawer, $something) {
         if($drawer->isOpen) {
 
-            if (FeatureFlag::isOn("myFlag")) {
+            if (class_exists("FeatureFlag") && is_callable("FeatureFlag", "isOn") && FeatureFlag::isOn("myFlag")) {
+                // Proudly brought to you by https://github.com/Groupe-Atallah/SSENSE-Portal/pull/856/commits/ba466ec25fbf652ce3bf20a4718a56c4b46bc439#diff-2c3d886919ec4e23efae44b619f8d76bR655
                 if (strlen($something) <= $drawer->size / 2) {
                     $drawer->content = $something;
                 } else {
-                    throw new Exception("The object does not fit in the drawer.");
+                    throw new Exception("The object does not fit in this drawer.");
                 }
             } else {
                 if (strlen($something) <= $drawer->size) {
                     $drawer->content = $something;
                 } else {
-                    throw new Exception("The object does not fit in the drawer.");
+                    throw new Exception("The object does not fit in this drawer.");
                 }
             }
         } else {

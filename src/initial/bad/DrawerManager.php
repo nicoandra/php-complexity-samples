@@ -24,6 +24,11 @@ class DrawerManager {
         if(!$drawer->isOpen) {
             throw new Exception("Can not put an object in a closed drawer. Open it first.");
         }
+
+        if (strlen($something) > $drawer->size) {
+            throw new Exception("The object does not fit in this drawer.");
+        }
+
         $drawer->content = $something;
     }
 

@@ -29,9 +29,8 @@ class DrawerManagerIfElseFeatureFlag {
             )) {
             $drawer->content = $something;
         } else {
-            throw new Exception("Can not put an object in a closed drawer. Open it first.");
+            throw new Exception("Can not put an object in a closed drawer. Open it first. Or maybe the object is too big.");
         }
-
     }
 
     public function get(Drawer $drawer) {

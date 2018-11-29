@@ -22,12 +22,11 @@ class DrawerManagerIfElse {
     }
 
     public function put(Drawer $drawer, $something) {
-        if($drawer->isOpen || strlen($something) > $drawer->size) {
+        if($drawer->isOpen && strlen($something) > $drawer->size) {
             $drawer->content = $something;
         } else {
-            throw new Exception("Can not put an object in a closed drawer. Open it first.");
+            throw new Exception("Can not put an object in a closed drawer. Open it first. And this error might not be accurate.");
         }
-
     }
 
     public function get(Drawer $drawer) {
