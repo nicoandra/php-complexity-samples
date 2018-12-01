@@ -5,6 +5,3 @@ for d in ./initial/good ./initial/bad ./initial/baddest ./initial/badder ./01-si
     docker run --rm --volume $(pwd)/$d:/project herloct/phpmetrics --report-html=metrics .;
 done
 
-
-
-docker run --rm --volume /Users/nicolas.andrade/code/ssense/complexity/src/featureFlags/good:/project herloct/phpmetrics --report-html=metrics .;

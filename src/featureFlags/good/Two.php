@@ -12,7 +12,6 @@ class TestableDrawer
         if ($this->isOpen) {
             throw new Exception("Can not open an open drawer");
         }
-
         $this->isOpen = true;
     }
 
@@ -21,7 +20,6 @@ class TestableDrawer
         if (!$this->isOpen) {
             throw new Exception("Can not close an closed drawer");
         }
-
         $this->isOpen = false;
     }
 
@@ -54,4 +52,3 @@ class TestableDrawer
         return $object;
     }
 }
-

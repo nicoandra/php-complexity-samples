@@ -10,7 +10,7 @@ class TestableDrawerConstructor
 
     public function __construct() {
         $this->storageSize = FeatureFlag::isOn("myFlag") ? $this->size / 2 : $this->size;
-	parent::__construct();
+        parent::__construct();
     }
 
     public function open()
@@ -52,4 +52,3 @@ class TestableDrawerConstructor
         return $object;
     }
 }
-
