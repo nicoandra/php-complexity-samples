@@ -13,17 +13,17 @@ abstract class BaseManager {
  }
 
  public function getList($params, $useSlaves = false) {
-     if ($useSlaves) {
-        return $this->repoRead->read($params);
-     }
-     return $this->repo->read($params);
+    $repo = $useSlaves ? $this->repoRead : $this->repo;
+
+    return [
+        $repo->count($params),
+        $repo->read($params)
+    ];
  }
 
  public function getOne($params, $useSlaves) {
-     if ($useSlaves) {
-        return $this->repoRead->read($params);
-     }
-     return $this->repo->read();
+     $repo = $useSlaves ? $this->repoRead : $this->repo;
+     return $repo->read($params);
  }
 }
 
@@ -35,27 +35,30 @@ class SomeSafeManager extends BaseManager {
 }
 
 
+class AnotherSafeManager extends BaseManager {
+}
+
+
 
 class SensitiveController {
     private $manager;
     public function __construct(){
         $this->manager = new SomeSensitiveManager();
     }
-
-    public function getList($params){
-        // Function override
-        return $this->manager->getList($params, true);   // pass TRUE because it's a SensitiveController
-    }
-
-    public function getOne($params){
-        return $this->manager->getOne($params, true);   // pass TRUE because it's a SensitiveController
-    }
-
 }
 
 class SafeController {
     private $manager;
     public function __construct(){
         $this->manager = new SomeSafeManager();
+    }
+
+    public function getList($params){
+        // Function override
+        return $this->manager->getList($params, false);   // pass FALSE because it's a SafeController
+    }
+
+    public function getOne($params){
+        return $this->manager->getOne($params, false);   // pass FALSE because it's a SafeController
     }
 }

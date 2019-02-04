@@ -14,7 +14,7 @@ abstract class BaseManager {
   }
 
  public function getList($params) {
-     $repo = $this->getRepoForReads();
+     $repo = $this->useSlaves ? $this->repoRead : $this->repo;
      return [
          $repo->count($params),
          $repo->read($params)
@@ -22,11 +22,8 @@ abstract class BaseManager {
  }
 
  public function getOne($params) {
-     return $this->getRepoForReads()->read($params);
- }
-
- private function getRepoForReads(){
-     return $this->useSlaves ? $this->repoRead : $this->repo;
+     $repo = $this->useSlaves ? $this->repoRead : $this->repo;
+     return $repo->read($params);
  }
 
 }
