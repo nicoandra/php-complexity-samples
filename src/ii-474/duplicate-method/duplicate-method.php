@@ -1,5 +1,7 @@
 <?php
 
+namespace \DuplicateMethod;
+
 class Repo {}
 
 abstract class BaseManager {
@@ -20,11 +22,9 @@ abstract class BaseManager {
         return $this->repo->read($params;
     }
 
-
     public function getOne($params) {
         return $this->repo->read($params);
     }
-
 
     public function getOneFromSlaves($params) {
         return $this->repo->read($params);
@@ -35,6 +35,16 @@ abstract class BaseManager {
 class SomeSensitiveManager extends BaseManager {}
 
 class SomeSafeManager extends BaseManager {
+
+    public function getList($params) {
+        // This is a safe manager so we can read from slaves
+        return $this->getListFromSlaves($params);
+    }
+
+    public function getOne($params) {
+        // This is a safe manager so we can read from slaves
+        return $this->getOneFromSlaves($params);
+    }
 }
 
 
@@ -43,9 +53,6 @@ class SensitiveController {
     public function __construct(){
         $this->manager = new SomeSensitiveManager();
     }
-
-
-
 }
 
 class SafeController {
@@ -53,7 +60,4 @@ class SafeController {
     public function __construct(){
         $this->manager = new SomeSafeManager();
     }
-
-
-
 }
