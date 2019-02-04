@@ -19,7 +19,7 @@ abstract class BaseManager {
      }
 
     public function getListFromSlaves($params) {
-        return $this->repo->read($params;
+        return $this->repo->read($params);
     }
 
     public function getOne($params) {
