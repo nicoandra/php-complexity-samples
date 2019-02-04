@@ -4,9 +4,9 @@ class Repo {}
 
 abstract class BaseManager {
 
- private $useSlaves = false;
- private $repo;
- private $repoRead;
+ protected $useSlaves = false;
+ protected $repo;
+ protected $repoRead;
 
  public function __construct(){
       $this->repo = new Repo();
@@ -14,15 +14,15 @@ abstract class BaseManager {
   }
 
  public function getList($params) {
-     return $this->repo->read();
+     return $this->getRepoForReads()->read($params);
  }
 
  public function getOne($params) {
-     return $this->repo->read();
+     return $this->getRepoForReads()->read($params);
  }
 
  private function getRepoForReads(){
-     if ($this->$useSlaves) {
+     if ($this->useSlaves) {
          return $this->repoRead;
      }
      return $this->repo;
@@ -34,12 +34,12 @@ abstract class BaseManager {
 class SomeSensitiveManager extends BaseManager {}
 
 class SomeSafeManager extends BaseManager {
-    private $useSlaves = true;
+    protected $useSlaves = true;
 }
 
 
 class SensitiveController {
-    private $manager;
+    protected $manager;
     public function __construct(){
         $this->manager = new SomeSensitiveManager();
     }
@@ -47,7 +47,7 @@ class SensitiveController {
 }
 
 class SafeController {
-    private $manager;
+    protected $manager;
     public function __construct(){
         $this->manager = new SomeSafeManager();
     }

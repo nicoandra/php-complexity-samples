@@ -14,14 +14,14 @@ abstract class BaseManager {
 
  public function getList($params, $useSlaves = false) {
      if ($useSlaves) {
-        return $this->repoRead->read();
+        return $this->repoRead->read($params);
      }
-     return $this->repo->read();
+     return $this->repo->read($params);
  }
 
  public function getOne($params, $useSlaves) {
      if ($useSlaves) {
-        return $this->repoRead->read();
+        return $this->repoRead->read($params);
      }
      return $this->repo->read();
  }
@@ -43,6 +43,7 @@ class SensitiveController {
     }
 
     public function getList($params){
+        // Function override
         return $this->manager->getList($params, true);   // pass TRUE because it's a SensitiveController
     }
 
